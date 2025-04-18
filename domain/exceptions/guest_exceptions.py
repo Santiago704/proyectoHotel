@@ -1,0 +1,2 @@
+class guestInvalidException(Exception):
+    pass
