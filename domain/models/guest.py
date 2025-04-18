@@ -3,7 +3,7 @@ from domain.models.user import user
 
 class guest(user):
 
-    def __init__(self,id, name , last_name,phone, email, password, status, origin, occupation ):
+    def __init__(self,id, name , last_name, phone, email, password, status, origin, occupation ):
         super().__init__(id, name , last_name,phone, email, password, status)
         self._origin = origin
         self._occupation = occupation
