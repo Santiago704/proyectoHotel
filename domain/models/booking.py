@@ -1,7 +1,14 @@
+#Importar de service, optService, bedroom y guest
+from domain.models.service import service
+from domain.models.guest import guest
+from domain.models.bedroom import bedroom
 
-class booking():
+class booking(service, guest, bedroom):
 
-    def __init__(self, checkin, checkout):
+    def __init__(self, checkin, checkout, service_name, price, id, name , last_name, phone, email, password, status, origin, occupation ):
+        service.__init__(self, service_name, price)
+        guest.__init__(self, id, name, last_name, phone, email, password, status, origin, occupation)
+
         self._checkin = checkin
         self._checkout = checkout
 
