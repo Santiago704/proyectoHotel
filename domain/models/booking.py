@@ -34,5 +34,5 @@ class booking(service, guest, bedroom):
         return self._booking_id
 
     @booking_id.setter
-    def checkout(self, booking_id):
+    def booking_id(self, booking_id):
         self._booking_id = booking_id
