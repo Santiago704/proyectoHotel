@@ -10,7 +10,7 @@ class optservice :
 
     @optservice_name.setter
     def optservice_name(self,optservice_name):
-        self._optservice_name
+        self._optservice_name=optservice_name
 
     @property
     def price(self):
@@ -18,5 +18,5 @@ class optservice :
 
     @price.setter
     def price(self, price):
-        self._price
+        self._price=price
 
