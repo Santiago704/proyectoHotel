@@ -45,3 +45,14 @@ class Conexion:
             return None
         finally:
             cursor.close()
+
+
+    def fetch_one(self, query, params):
+        if not self._connection:
+            print("No hay conexión establecida")
+            return None
+        cursor = self._connection.cursor(dictionary=True)
+        cursor.execute(query, params)
+        result = cursor.fetchone()
+        cursor.close()
+        return result

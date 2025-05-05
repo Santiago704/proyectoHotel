@@ -2,28 +2,52 @@ from domain.models.guest import guest
 from domain.services.guest_service import guest_service
 from application.guest_input import guest_input
 from repository.conexion.bd_connection import Conexion
+from repository.persistence.guest_repository import guest_repository
 
 
 class menu_app:
 
-    db = Conexion(host='localhost', port=3306, user='root', password="", database='proyectohotelbd')
-    db.connection()
-
     def __init__(self):
-        self.guest = guest(None, None,None,None,None,None,None,None,None)
-        self.guest_service = guest_service(self.db)
-        self.guest_input = guest_input(self.db)
-
+        self.db = Conexion(host='localhost', port=3306, user='root', password="", database='proyectohotelbd')
+        self.db.connection()
+        self.repository = guest_repository(self.db)
+        self.guest_service = guest_service(self.repository)
+        self.guest_input = guest_input()
 
     def init_app(self):
-        init = (int(input("Presione 1 para inicializar")))
+        while True:
+            try:
+                init = int(input("Presione 1 para inicializar: "))
+                if init != 1:
+                    print('Para empezar solo es válida la opción 1.')
+                    continue
+                break
+            except ValueError:
+                print("Opción inválida, digite un número.")
 
-        while init != 0:
+        while True:
+            try:
+                option = int(input("1. Login  2. Registro  3. Salir: "))
 
-            option = int(input("1. Login 2. registro 3. salir"))
-
-            if option == 1:
-                print("Login")
-            elif option == 2:
-                print("Registro")
-                self.guest_input.register(self.guest,self.db)
+                match option:
+                    case 1:
+                        try:
+                            self.guest_input.login(self.guest_service)
+                            continue
+                        except ValueError:
+                            print("Error en el login")
+                            continue
+                    case 2:
+                        try:
+                            self.guest_input.register(self.guest_service)
+                            break
+                        except ValueError:
+                            print("Error en el registro")
+                            break
+                    case 3:
+                        print("Salió del sistema")
+                        break
+                    case _:
+                        print("Digite una opción válida.")
+            except ValueError:
+                print("Opción inválida, digite un número.")

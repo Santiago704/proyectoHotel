@@ -5,22 +5,26 @@ class guest_repository:
         self.conexion = conexion
 
     def save(self, guest):
-        # Primero insertamos en la tabla users
         query_users = ("INSERT INTO users (name, last_name, id, phone, email, password) VALUES (%s, %s, %s, %s, %s, %s)")
         params_users = (
             guest.name,
             guest.last_name,
-            guest.id,  # El id que se pasa es el mismo para ambas tablas
+            guest.id,
             guest.phone,
             guest.email,
             guest.password
         )
         self.conexion.execute_query(query_users, params_users)
 
-        # Luego insertamos en la tabla guest usando el mismo id
         query_guest = ("INSERT INTO guest (id, occupation) VALUES (%s, %s)")
         params_guest = (
-            guest.id,  # Usamos el mismo id
+            guest.id,
             guest.occupation
         )
         self.conexion.execute_query(query_guest, params_guest)
+
+    def login(self, email, password):
+        query = "SELECT * FROM users WHERE email = %s AND password = %s"
+        params = (email, password)
+        result = self.conexion.fetch_one(query, params)
+        return result
