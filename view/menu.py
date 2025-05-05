@@ -33,6 +33,7 @@ class menu_app:
                     case 1:
                         try:
                             self.guest_input.login(self.guest_service)
+                            self.principal_menu()
                             continue
                         except ValueError:
                             print("Error en el login")
@@ -40,10 +41,10 @@ class menu_app:
                     case 2:
                         try:
                             self.guest_input.register(self.guest_service)
-                            break
+                            continue
                         except ValueError:
                             print("Error en el registro")
-                            break
+                            continue
                     case 3:
                         print("Salió del sistema")
                         break
@@ -51,3 +52,22 @@ class menu_app:
                         print("Digite una opción válida.")
             except ValueError:
                 print("Opción inválida, digite un número.")
+
+    def principal_menu(self):
+        while True:
+            try:
+                option = int(input("1. Consultar habitaciones  2. Reservar  3. Salir: "))
+                match option:
+                    case 1:
+                        #lógica para consultar habitaciones
+                        break
+                    case 2:
+                        #lógica para reservar una habitación
+                        break
+                    case 3:
+                        print("Saliendo al menú principal.")
+                        break
+                    case _:
+                        print("Digite una opción válida")
+            except ValueError:
+                print(" digite un número")
