@@ -30,6 +30,8 @@ class guest_input:
             password = input("Ingrease la contraseña: ")
 
             guest = guest_service.login_guest(email, password)
+            return True
 
         except Exception as e:
             print("Error en el login:", e)
+            return False

@@ -23,7 +23,7 @@ class menu_app:
                     continue
                 break
             except ValueError:
-                print("Opción inválida, digite un número.")
+                print("Opción inválida, digite un número")
 
         while True:
             try:
@@ -32,8 +32,8 @@ class menu_app:
                 match option:
                     case 1:
                         try:
-                            self.guest_input.login(self.guest_service)
-                            self.principal_menu()
+                            if self.guest_input.login(self.guest_service):
+                                self.principal_menu()
                             continue
                         except ValueError:
                             print("Error en el login")

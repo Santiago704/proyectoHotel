@@ -9,6 +9,7 @@ class booking(service, guest, bedroom):
         service.__init__(self, service_name, price)
         guest.__init__(self, id, name, last_name, phone, email, password, status, origin, occupation)
 
+
         self._checkin = checkin
         self._checkout = checkout
         self._booking_id = booking_id
