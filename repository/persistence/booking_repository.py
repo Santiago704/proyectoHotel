@@ -1,26 +1,18 @@
-from domain.models.booking import booking
-
 class booking_repository:
     def __init__(self, conexion):
         self.conexion = conexion
 
-    def save(self, booking):
-        query = ("INSERT INTO booking (booking_id, checkin, checkout, service_name, price, id, name , last_name, phone, email, password, status, origin, occupation) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
-        params = (
-            booking.booking_id,
-            booking.checkin,
-            booking.checkout,
-            booking.service_name,
-            booking.price,
-            booking.id,
-            booking.name,
-            booking.last_name,
-            booking.phone,
-            booking.email,
-            booking.password,
-            booking.status,
-            booking.origin,
-            booking.occupation
+    def save(self, booking_obj):
+        query = (
+            "INSERT INTO booking (booking_id, guest_id, bedroom_id, service_id, checkin, checkout) "
+            "VALUES (%s, %s, %s, %s, %s, %s)"
         )
-
+        params = (
+            booking_obj.booking_id,
+            booking_obj.guest_id,
+            booking_obj.bedroom_id,
+            booking_obj.service_id,
+            booking_obj.checkin.isoformat(),
+            booking_obj.checkout.isoformat(),
+        )
         self.conexion.execute_query(query, params)

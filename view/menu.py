@@ -1,6 +1,8 @@
 from domain.models.guest import guest
 from domain.services.guest_service import guest_service
 from application.guest_input import guest_input
+from application.booking_input import booking_input
+from domain.services.booking_service import Booking_service
 from repository.conexion.bd_connection import Conexion
 from repository.persistence.guest_repository import guest_repository
 
@@ -12,7 +14,9 @@ class menu_app:
         self.db.connection()
         self.repository = guest_repository(self.db)
         self.guest_service = guest_service(self.repository)
+        self.booking_service = Booking_service(self.repository)
         self.guest_input = guest_input()
+        self.booking_input = booking_input()
 
     def init_app(self):
         while True:
@@ -62,8 +66,12 @@ class menu_app:
                         #lógica para consultar habitaciones
                         break
                     case 2:
-                        #lógica para reservar una habitación
-                        break
+                        try:
+                            self.booking_input.add_booking(self.booking_service)
+                            continue
+                        except ValueError:
+                            print("Error en el registro")
+                            continue
                     case 3:
                         print("Saliendo al menú principal.")
                         break

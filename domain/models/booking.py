@@ -1,18 +1,43 @@
-#Importar de service, optService, bedroom y guest
-from domain.models.service import service
-from domain.models.guest import guest
-from domain.models.bedroom import bedroom
-
-class booking(service, guest, bedroom):
-
-    def __init__(self, checkin, checkout, booking_id,  service_name, price, id, name , last_name, phone, email, password, status, origin, occupation ):
-        service.__init__(self, service_name, price)
-        guest.__init__(self, id, name, last_name, phone, email, password, status, origin, occupation)
-
-
+class Booking:
+    def __init__(self, booking_id, guest_id, bedroom_id, service_id, checkin, checkout):
+        self._booking_id = booking_id
+        self._guest_id = guest_id
+        self._bedroom_id = bedroom_id
+        self._service_id = service_id
         self._checkin = checkin
         self._checkout = checkout
+
+    @property
+    def booking_id(self):
+        return self._booking_id
+
+    @booking_id.setter
+    def booking_id(self, booking_id):
         self._booking_id = booking_id
+
+    @property
+    def guest_id(self):
+        return self._guest_id
+
+    @guest_id.setter
+    def guest_id(self, guest_id):
+        self._guest_id = guest_id
+
+    @property
+    def bedroom_id(self):
+        return self._bedroom_id
+
+    @bedroom_id.setter
+    def bedroom_id(self, bedroom_id):
+        self._bedroom_id = bedroom_id
+
+    @property
+    def service_id(self):
+        return self._service_id
+
+    @service_id.setter
+    def service_id(self, service_id):
+        self._service_id = service_id
 
     @property
     def checkin(self):
@@ -29,11 +54,3 @@ class booking(service, guest, bedroom):
     @checkout.setter
     def checkout(self, checkout):
         self._checkout = checkout
-
-    @property
-    def booking_id(self):
-        return self._booking_id
-
-    @booking_id.setter
-    def booking_id(self, booking_id):
-        self._booking_id = booking_id
