@@ -16,6 +16,10 @@ class guest_input:
             origin = input("Ingrese su ciudad de origen: ")
             occupation = input("Ingrese su ocupación: ")
 
+            #guest_service.register_guest(
+            #    id, name, last_name, phone, email, password, status, origin, occupation
+            #)
+            ##Le quite name
             guest_service.register_guest(
                 id, name, last_name, phone, email, password, status, origin, occupation
             )
