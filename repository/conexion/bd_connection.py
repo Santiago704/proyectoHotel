@@ -76,3 +76,28 @@ class Conexion:
             print("📦 Exportación completa de todas las tablas.")
         except mysql.connector.Error as err:
             print("❌ Error al obtener lista de tablas:", err)
+
+            def export_table_to_csv(self, table_name, output_dir="csv_exports"):
+                if not self._connection:
+                    print("❌ No hay conexión establecida.")
+                    return
+
+                os.makedirs(output_dir, exist_ok=True)
+                ruta_salida = os.path.join(output_dir, f"{table_name}.csv")
+
+                try:
+                    cursor = self._connection.cursor()
+                    cursor.execute(f"SELECT * FROM {table_name}")
+                    rows = cursor.fetchall()
+                    column_names = [i[0] for i in cursor.description]
+
+                    with open(ruta_salida, "w", newline="", encoding="utf-8") as f:
+                        writer = csv.writer(f)
+                        writer.writerow(column_names)
+                        writer.writerows(rows)
+
+                    print(f"✅ Tabla '{table_name}' exportada a: {ruta_salida}")
+                except mysql.connector.Error as err:
+                    print(f"❌ Error al exportar tabla '{table_name}': {err}")
+                finally:
+                      cursor.close()
