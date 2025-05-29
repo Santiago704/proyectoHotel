@@ -1,4 +1,6 @@
 import mysql.connector  # Corregí el import, es mejor usar directamente `mysql.connector`
+import csv
+import os
 
 class Conexion:
 
@@ -56,3 +58,21 @@ class Conexion:
         result = cursor.fetchone()
         cursor.close()
         return result
+
+    def export_all_tables_to_csv(self, output_dir="csv_exports"):
+        if not self._connection:
+            print("❌ No hay conexión establecida.")
+            return
+
+        try:
+            cursor = self._connection.cursor()
+            cursor.execute("SHOW TABLES")
+            tablas = [tabla[0] for tabla in cursor.fetchall()]
+            cursor.close()
+
+            for tabla in tablas:
+                self.export_table_to_csv(tabla, output_dir)
+
+            print("📦 Exportación completa de todas las tablas.")
+        except mysql.connector.Error as err:
+            print("❌ Error al obtener lista de tablas:", err)
