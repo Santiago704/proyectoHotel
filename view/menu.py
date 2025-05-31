@@ -60,11 +60,12 @@ class menu_app:
     def principal_menu(self):
         while True:
             try:
-                option = int(input("1. Consultar habitaciones  2. Reservar  3. Salir: "))
+                option = int(input("1. Consultar habitaciones  2. Reservar  3. Salir 4.Descargar base en csv: "))
                 match option:
                     case 1:
                         #lógica para consultar habitaciones
-                        break
+                        print("Funcionalidad aun no implementada")
+                        continue
                     case 2:
                         try:
                             self.booking_input.add_booking(self.booking_service)
@@ -75,6 +76,10 @@ class menu_app:
                     case 3:
                         print("Saliendo al menú principal.")
                         break
+                    case 4:
+                        print("Iniciando exportacion de la base de datos a CSV...")
+                        self.db.export_all_tables_to_csv()
+                        continue
                     case _:
                         print("Digite una opción válida")
             except ValueError:
